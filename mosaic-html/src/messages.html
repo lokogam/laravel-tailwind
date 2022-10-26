@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mosaic HTML Demo - Messages</title>
+</head>
+
+<body
+    class="font-inter antialiased bg-gray-100 text-gray-600"
+    :class="{ 'sidebar-expanded': sidebarExpanded }"
+    x-data="{ page: 'messages', sidebarOpen: false, sidebarExpanded: localStorage.getItem('sidebar-expanded') == 'true', msgSidebarOpen: true }"
+    x-init="() => { $refs.contentarea.scrollTop = 99999999 }; $watch('sidebarExpanded', value => localStorage.setItem('sidebar-expanded', value))"
+>
+
+    <script>
+        if (localStorage.getItem('sidebar-expanded') == 'true') {
+            document.querySelector('body').classList.add('sidebar-expanded');
+        } else {
+            document.querySelector('body').classList.remove('sidebar-expanded');
+        }
+    </script>
+
+    <!-- Page wrapper -->
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <%= require('html-loader!./partials/sidebar.html') %>
+
+        <!-- Content area -->
+        <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden" x-ref="contentarea">
+
+            <!-- Site header -->
+            <%= require('html-loader!./partials/header.html') %>
+            
+            <main>
+
+                <div class="relative flex">
+
+                    <!-- Messages sidebar -->
+                    <%= require('html-loader!./partials/messages-sidebar.html') %>
+
+                    <!-- Messages body -->
+                    <%= require('html-loader!./partials/messages-body.html') %>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

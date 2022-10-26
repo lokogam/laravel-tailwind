@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mosaic HTML Demo - Page Not Found</title>
+</head>
+
+<body
+    class="font-inter antialiased bg-gray-100 text-gray-600"
+    :class="{ 'sidebar-expanded': sidebarExpanded }"
+    x-data="{ page: 'utility-404', sidebarOpen: false, sidebarExpanded: localStorage.getItem('sidebar-expanded') == 'true' }"
+    x-init="$watch('sidebarExpanded', value => localStorage.setItem('sidebar-expanded', value))"
+>
+
+    <script>
+        if (localStorage.getItem('sidebar-expanded') == 'true') {
+            document.querySelector('body').classList.add('sidebar-expanded');
+        } else {
+            document.querySelector('body').classList.remove('sidebar-expanded');
+        }
+    </script>
+
+    <!-- Page wrapper -->
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <%= require('html-loader!./partials/sidebar.html') %>
+
+        <!-- Content area -->
+        <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-white">
+
+            <!-- Site header -->
+            <%= require('html-loader!./partials/header.html') %>
+            
+            <main>
+                <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+
+                    <div class="max-w-2xl m-auto mt-16">
+
+                        <div class="text-center px-4">
+                            <div class="inline-flex mb-8">
+                                <img src="images/404-illustration.svg" width="176" height="176" alt="404 illustration" />
+                            </div>
+                            <div class="mb-6">Hmm...this page doesn’t exist. Try searching for something else!</div>
+                            <a href="index.html" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">Back To Dashboard</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
